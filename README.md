@@ -89,6 +89,16 @@ A **LOCAL-ONLY**, production-grade, enterprise telecom shopping platform with cl
 
 ## 🛠️ Technology Stack
 
+## 🛠️ Sanity Report 
+
+https://github.com/user-attachments/assets/bfa9624a-7297-40e8-8a98-07285b83c245
+
+
+
+
+
+
+
 ### Backend Services
 | Component | Technology | Version |
 |-----------|------------|---------|
