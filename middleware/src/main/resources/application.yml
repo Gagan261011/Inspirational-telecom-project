@@ -1,0 +1,49 @@
+# Middleware Security Gateway Configuration
+server:
+  port: 8443
+  ssl:
+    enabled: true
+    key-store: classpath:certs/middleware.p12
+    key-store-password: changeit
+    key-store-type: PKCS12
+    trust-store: classpath:certs/truststore.p12
+    trust-store-password: changeit
+    trust-store-type: PKCS12
+    client-auth: need
+
+spring:
+  application:
+    name: security-gateway
+
+# Backend service configuration
+backend:
+  url: https://localhost:9443
+  ssl:
+    key-store: classpath:certs/middleware.p12
+    key-store-password: changeit
+    trust-store: classpath:certs/truststore.p12
+    trust-store-password: changeit
+
+# Logging
+logging:
+  level:
+    root: INFO
+    com.telecom.enterprise: DEBUG
+    org.springframework.security: DEBUG
+
+# OpenAPI
+springdoc:
+  api-docs:
+    path: /api-docs
+  swagger-ui:
+    path: /swagger-ui.html
+
+# Actuator
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,info,metrics
+  endpoint:
+    health:
+      show-details: always

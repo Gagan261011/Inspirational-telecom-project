@@ -1,0 +1,44 @@
+# User BFF Service Configuration
+server:
+  port: 8081
+
+spring:
+  application:
+    name: bff-user-service
+  
+  graphql:
+    graphiql:
+      enabled: true
+      path: /graphiql
+    path: /graphql
+
+# Backend service (direct connection for development)
+backend:
+  url: http://localhost:9443
+
+# Middleware gateway (for mTLS in production)
+middleware:
+  url: https://localhost:8443
+  ssl:
+    enabled: false  # Enable when using mTLS
+
+# Logging
+logging:
+  level:
+    root: INFO
+    com.telecom.enterprise: DEBUG
+
+# OpenAPI
+springdoc:
+  api-docs:
+    path: /api-docs
+  swagger-ui:
+    path: /swagger-ui.html
+    operationsSorter: method
+
+# Actuator
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,info,metrics

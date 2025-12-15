@@ -1,0 +1,72 @@
+# Backend Service Configuration
+server:
+  port: 9443
+  ssl:
+    enabled: true
+    key-store: classpath:certs/backend.p12
+    key-store-password: changeit
+    key-store-type: PKCS12
+    trust-store: classpath:certs/truststore.p12
+    trust-store-password: changeit
+    trust-store-type: PKCS12
+    client-auth: need
+
+spring:
+  application:
+    name: backend-service
+  
+  # H2 Database Configuration
+  datasource:
+    url: jdbc:h2:mem:telecomdb;DB_CLOSE_DELAY=-1;DB_CLOSE_ON_EXIT=FALSE
+    driverClassName: org.h2.Driver
+    username: sa
+    password: 
+  
+  h2:
+    console:
+      enabled: true
+      path: /h2-console
+      settings:
+        web-allow-others: false
+  
+  jpa:
+    database-platform: org.hibernate.dialect.H2Dialect
+    hibernate:
+      ddl-auto: create-drop
+    show-sql: false
+    properties:
+      hibernate:
+        format_sql: true
+  
+  # GraphQL Configuration
+  graphql:
+    graphiql:
+      enabled: true
+      path: /graphiql
+    path: /graphql
+    schema:
+      printer:
+        enabled: true
+
+# Logging
+logging:
+  level:
+    root: INFO
+    com.telecom.enterprise: DEBUG
+    org.springframework.security: DEBUG
+
+# OpenAPI Configuration
+springdoc:
+  api-docs:
+    path: /api-docs
+  swagger-ui:
+    path: /swagger-ui.html
+    operationsSorter: method
+
+# Custom Application Properties
+app:
+  name: Enterprise Telecom Backend
+  version: 1.0.0
+  security:
+    mtls:
+      enabled: true

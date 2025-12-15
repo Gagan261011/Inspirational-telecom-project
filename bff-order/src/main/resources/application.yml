@@ -1,0 +1,38 @@
+# Order BFF Service Configuration
+server:
+  port: 8082
+
+spring:
+  application:
+    name: bff-order-service
+  
+  graphql:
+    graphiql:
+      enabled: true
+      path: /graphiql
+    path: /graphql
+
+# Backend service
+backend:
+  url: http://localhost:9443
+
+# Logging
+logging:
+  level:
+    root: INFO
+    com.telecom.enterprise: DEBUG
+
+# OpenAPI
+springdoc:
+  api-docs:
+    path: /api-docs
+  swagger-ui:
+    path: /swagger-ui.html
+    operationsSorter: method
+
+# Actuator
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,info,metrics
