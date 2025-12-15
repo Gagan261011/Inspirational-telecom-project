@@ -59,6 +59,37 @@ A **LOCAL-ONLY**, production-grade, enterprise telecom shopping platform with cl
 └─────────────────────────────────────────────────────────────────────────────────┘
 ```
 
+## Microservice Architecture Overview
+
+<img width="1354" height="617" alt="image" src="https://github.com/user-attachments/assets/dfeab76b-0f53-47d4-a6e9-b158d64392a8" />
+
+<img width="1243" height="464" alt="image" src="https://github.com/user-attachments/assets/5b5de8ca-5779-4935-b69e-548378a5ba2e" />
+
+<img width="1267" height="208" alt="image" src="https://github.com/user-attachments/assets/8e813bc4-a0df-4b8d-b410-259728a27ba1" />
+
+<img width="1322" height="535" alt="image" src="https://github.com/user-attachments/assets/0d0d60f8-9573-4e73-9b34-23da28d4cad1" />
+
+<img width="1334" height="308" alt="image" src="https://github.com/user-attachments/assets/11dd7d2a-f74b-4552-9126-b8a5ba2181ec" />
+
+<img width="1279" height="431" alt="image" src="https://github.com/user-attachments/assets/07b81d6c-0150-40b2-81d6-9215f704ae9c" />
+
+<img width="1213" height="391" alt="image" src="https://github.com/user-attachments/assets/9e8bd76e-c066-41f8-a5b8-3ec63bb3634a" />
+
+<img width="1265" height="488" alt="image" src="https://github.com/user-attachments/assets/bfd29f2a-d2bd-4164-9a07-cdeab89db79c" />
+
+<img width="1268" height="479" alt="image" src="https://github.com/user-attachments/assets/43bb79b9-a3cc-48cd-a381-6b473a321b94" />
+
+<img width="1318" height="622" alt="image" src="https://github.com/user-attachments/assets/24a8ff72-f9ed-44fb-b789-4e0f59c80b17" />
+
+
+
+
+
+
+
+
+
+
 ## 🔐 Security Architecture (mTLS)
 
 ```
