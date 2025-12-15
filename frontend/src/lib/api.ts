@@ -1,6 +1,52 @@
 const API_USER_BASE = 'http://localhost:8081/api/v1'
 const API_ORDER_BASE = 'http://localhost:8082/api/v1'
 
+// Types
+export interface Product {
+  id: number
+  name: string
+  description: string
+  price: number
+  category: string
+  imageUrl?: string
+  inStock: boolean
+  featured: boolean
+}
+
+export interface Order {
+  id: number
+  orderNumber: string
+  userId: number
+  status: string
+  paymentStatus: string
+  items: OrderItem[]
+  subtotal: number
+  tax: number
+  total: number
+  createdAt: string
+  shippingAddress?: string
+  trackingNumber?: string
+}
+
+export interface OrderItem {
+  id: number
+  productId: number
+  productName: string
+  quantity: number
+  price: number
+  total: number
+}
+
+export interface BillingInfo {
+  id: number
+  userId: number
+  type: string
+  amount: number
+  dueDate: string
+  status: string
+  paidAt?: string
+}
+
 async function fetchAPI(url: string, options?: RequestInit) {
   const response = await fetch(url, {
     ...options,
@@ -118,4 +164,23 @@ export const orderAPI = {
       method: 'POST',
       body: JSON.stringify(data),
     }),
+}
+
+// Aliases for backwards compatibility
+export const userApi = {
+  login: authAPI.login,
+  register: authAPI.register,
+  getBillingInfo: userAPI.getBillingHistory,
+  ...userAPI,
+}
+
+export const orderApi = {
+  getProducts: productAPI.getAll,
+  getProduct: productAPI.getById,
+  getOrders: orderAPI.getUserOrders,
+  getOrder: orderAPI.getById,
+  createOrder: (userId: number, items: any[]) => orderAPI.create({ userId, items }),
+  ...productAPI,
+  ...cartAPI,
+  ...orderAPI,
 }

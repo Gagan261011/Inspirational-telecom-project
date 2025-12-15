@@ -24,6 +24,9 @@ export interface CartItem {
   price: number
   quantity: number
   total: number
+  // Aliases for component compatibility
+  name?: string
+  imageUrl?: string
 }
 
 export interface Cart {
@@ -110,3 +113,85 @@ export const useThemeStore = create<ThemeState>()(
     }
   )
 )
+
+// Combined store hook for backwards compatibility
+export function useStore() {
+  const authStore = useAuthStore()
+  const cartStore = useCartStore()
+  const themeStore = useThemeStore()
+  
+  return {
+    // Auth
+    user: authStore.user,
+    token: authStore.token,
+    isAuthenticated: authStore.isAuthenticated,
+    setUser: (user: User) => authStore.setUser(user, authStore.token || ''),
+    setToken: (token: string) => authStore.user && authStore.setUser(authStore.user, token),
+    login: authStore.setUser,
+    logout: authStore.logout,
+    
+    // Cart
+    cart: cartStore.cart,
+    cartItems: cartStore.cart?.items || [],
+    setCart: cartStore.setCart,
+    clearCart: cartStore.clearCart,
+    addToCart: (item: CartItem) => {
+      const currentCart = cartStore.cart
+      if (currentCart) {
+        const existingItem = currentCart.items.find(i => i.productId === item.productId)
+        if (existingItem) {
+          existingItem.quantity += item.quantity
+          existingItem.total = existingItem.price * existingItem.quantity
+        } else {
+          currentCart.items.push(item)
+        }
+        currentCart.itemCount = currentCart.items.reduce((sum, i) => sum + i.quantity, 0)
+        currentCart.subtotal = currentCart.items.reduce((sum, i) => sum + i.total, 0)
+        currentCart.tax = currentCart.subtotal * 0.1
+        currentCart.total = currentCart.subtotal + currentCart.tax
+        cartStore.setCart({...currentCart})
+      } else {
+        const newCart: Cart = {
+          id: 0,
+          userId: authStore.user?.id || 0,
+          items: [item],
+          subtotal: item.total,
+          tax: item.total * 0.1,
+          total: item.total * 1.1,
+          itemCount: item.quantity,
+        }
+        cartStore.setCart(newCart)
+      }
+    },
+    updateCartItem: (productId: number, quantity: number) => {
+      const currentCart = cartStore.cart
+      if (currentCart) {
+        const item = currentCart.items.find(i => i.productId === productId)
+        if (item) {
+          item.quantity = quantity
+          item.total = item.price * quantity
+        }
+        currentCart.itemCount = currentCart.items.reduce((sum, i) => sum + i.quantity, 0)
+        currentCart.subtotal = currentCart.items.reduce((sum, i) => sum + i.total, 0)
+        currentCart.tax = currentCart.subtotal * 0.1
+        currentCart.total = currentCart.subtotal + currentCart.tax
+        cartStore.setCart({...currentCart})
+      }
+    },
+    removeFromCart: (productId: number) => {
+      const currentCart = cartStore.cart
+      if (currentCart) {
+        currentCart.items = currentCart.items.filter(i => i.productId !== productId)
+        currentCart.itemCount = currentCart.items.reduce((sum, i) => sum + i.quantity, 0)
+        currentCart.subtotal = currentCart.items.reduce((sum, i) => sum + i.total, 0)
+        currentCart.tax = currentCart.subtotal * 0.1
+        currentCart.total = currentCart.subtotal + currentCart.tax
+        cartStore.setCart({...currentCart})
+      }
+    },
+    
+    // Theme
+    isDark: themeStore.isDark,
+    toggleTheme: themeStore.toggleTheme,
+  }
+}

@@ -1,7 +1,6 @@
 import { useState, useEffect } from "react"
-import { Link } from "react-router-dom"
 import { motion } from "framer-motion"
-import { Search, Filter, ShoppingCart, Star, Grid, List } from "lucide-react"
+import { Search, ShoppingCart, Star, Grid, List } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Card, CardContent, CardFooter, CardHeader } from "@/components/ui/card"

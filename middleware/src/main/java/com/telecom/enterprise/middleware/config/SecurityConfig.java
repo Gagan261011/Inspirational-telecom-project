@@ -5,6 +5,9 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.http.SessionCreationPolicy;
+import org.springframework.security.core.authority.AuthorityUtils;
+import org.springframework.security.core.userdetails.User;
+import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.CorsConfigurationSource;
@@ -33,9 +36,22 @@ public class SecurityConfig {
             )
             .x509(x509 -> x509
                 .subjectPrincipalRegex("CN=(.*?)(?:,|$)")
+                .userDetailsService(x509UserDetailsService())
             );
         
         return http.build();
+    }
+    
+    @Bean
+    public UserDetailsService x509UserDetailsService() {
+        // Accept any valid certificate - the CN becomes the username
+        return username -> {
+            return new User(
+                username,
+                "", // No password needed for X.509
+                AuthorityUtils.createAuthorityList("ROLE_CLIENT")
+            );
+        };
     }
     
     @Bean

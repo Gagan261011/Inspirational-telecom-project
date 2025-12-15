@@ -19,8 +19,14 @@ import { Separator } from "@/components/ui/separator"
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import { Spinner } from "@/components/ui/spinner"
 import { useStore } from "@/store"
-import { useToast } from "@/hooks/use-toast"
-import { userApi, BillingInfo } from "@/lib/api"
+import { userApi } from "@/lib/api"
+
+interface BillingData {
+  currentBalance: number
+  nextBillingDate: string
+  paymentMethod: string
+  billingHistory: any[]
+}
 
 const statusColors = {
   PAID: "success",
@@ -41,10 +47,9 @@ const mockPaymentMethods = [
 ]
 
 export function BillingPage() {
-  const { toast } = useToast()
   const { user } = useStore()
   
-  const [billing, setBilling] = useState<BillingInfo | null>(null)
+  const [billing, setBilling] = useState<BillingData | null>(null)
   const [isLoading, setIsLoading] = useState(true)
 
   useEffect(() => {
@@ -58,8 +63,13 @@ export function BillingPage() {
     
     try {
       setIsLoading(true)
-      const data = await userApi.getBillingInfo(user.id)
-      setBilling(data)
+      const data = await userApi.getBillingHistory(user.id)
+      setBilling({
+        currentBalance: 59.99,
+        nextBillingDate: "2024-04-15",
+        paymentMethod: "Visa ending in 4242",
+        billingHistory: data || mockInvoices,
+      })
     } catch (error) {
       // Use mock data if API fails
       setBilling({

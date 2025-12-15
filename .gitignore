@@ -1,0 +1,61 @@
+# ===========================================
+# TelecomPro Project - Git Ignore
+# ===========================================
+
+# ----- Security Sensitive Files -----
+# Certificates and keys (NEVER commit these!)
+certs/
+*.p12
+*.jks
+*.pem
+*.key
+*.crt
+*.csr
+
+# ----- Build Outputs -----
+target/
+build/
+dist/
+*.class
+*.jar
+*.war
+
+# ----- IDE Files -----
+.idea/
+*.iml
+.vscode/
+*.swp
+*.swo
+.project
+.classpath
+.settings/
+
+# ----- Logs -----
+logs/
+*.log
+
+# ----- Reports (generated) -----
+reports/
+
+# ----- Node/Frontend -----
+node_modules/
+.npm/
+.pnpm-store/
+
+# ----- OS Files -----
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# ----- Environment Files -----
+.env
+.env.local
+.env.*.local
+*.env
+
+# ----- Temporary Files -----
+tmp/
+temp/
+*.tmp
+*.bak
+*.backup

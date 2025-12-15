@@ -14,7 +14,7 @@ import java.util.List;
 @Configuration
 public class WebConfig {
     
-    @Value("${backend.url}")
+    @Value("${backend.url:http://localhost:9080}")
     private String backendUrl;
     
     @Bean

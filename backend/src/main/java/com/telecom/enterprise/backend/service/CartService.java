@@ -70,7 +70,7 @@ public class CartService {
     
     @Transactional
     public CartDTO updateCartItem(Long userId, Long itemId, Integer quantity) {
-        Cart cart = cartRepository.findByUserId(userId)
+        final Cart cart = cartRepository.findByUserId(userId)
                 .orElseThrow(() -> new RuntimeException("Cart not found"));
         
         cart.getItems().stream()
@@ -85,13 +85,13 @@ public class CartService {
                     }
                 });
         
-        cart = cartRepository.save(cart);
-        return toDTO(cart);
+        Cart savedCart = cartRepository.save(cart);
+        return toDTO(savedCart);
     }
     
     @Transactional
     public CartDTO removeFromCart(Long userId, Long itemId) {
-        Cart cart = cartRepository.findByUserId(userId)
+        final Cart cart = cartRepository.findByUserId(userId)
                 .orElseThrow(() -> new RuntimeException("Cart not found"));
         
         cart.getItems().stream()
@@ -102,8 +102,8 @@ public class CartService {
                     cartItemRepository.delete(item);
                 });
         
-        cart = cartRepository.save(cart);
-        return toDTO(cart);
+        Cart savedCart = cartRepository.save(cart);
+        return toDTO(savedCart);
     }
     
     @Transactional

@@ -9,7 +9,6 @@ import {
   Package,
   CreditCard,
   Home,
-  Settings,
   Phone,
 } from "lucide-react"
 import { useState } from "react"

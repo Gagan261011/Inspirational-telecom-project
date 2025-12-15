@@ -178,7 +178,7 @@ export function OrdersPage() {
                 {order.items && order.items.length > 0 && (
                   <div className="mt-4 pt-4 border-t">
                     <div className="flex gap-2 overflow-x-auto">
-                      {order.items.slice(0, 5).map((item, i) => (
+                      {order.items.slice(0, 5).map((_item: any, i: number) => (
                         <div
                           key={i}
                           className="w-16 h-16 flex-shrink-0 rounded-lg bg-muted flex items-center justify-center"

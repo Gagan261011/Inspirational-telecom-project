@@ -6,10 +6,6 @@ import {
   Smartphone,
   Tv,
   Shield,
-  Zap,
-  Globe,
-  Award,
-  Users,
   Star,
   Check,
 } from "lucide-react"

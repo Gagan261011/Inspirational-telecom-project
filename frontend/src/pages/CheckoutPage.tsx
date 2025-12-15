@@ -51,7 +51,7 @@ export function CheckoutPage() {
       const order = await orderApi.createOrder(user.id, orderItems)
 
       // Process payment
-      await orderApi.processPayment(order.id, total, "credit_card")
+      await orderApi.processPayment({ orderId: order.id, amount: total, method: "credit_card" })
 
       // Clear cart and navigate
       clearCart()
@@ -323,7 +323,7 @@ export function CheckoutPage() {
                     <div className="space-y-3">
                       {cartItems.map((item) => (
                         <div key={item.productId} className="flex justify-between text-sm">
-                          <span>{item.name} × {item.quantity}</span>
+                          <span>{item.productName} × {item.quantity}</span>
                           <span>${(item.price * item.quantity).toFixed(2)}</span>
                         </div>
                       ))}
@@ -370,10 +370,10 @@ export function CheckoutPage() {
               {cartItems.map((item) => (
                 <div key={item.productId} className="flex gap-3">
                   <div className="w-12 h-12 rounded-lg bg-muted flex items-center justify-center flex-shrink-0">
-                    {item.imageUrl ? (
+                    {item.productImage ? (
                       <img
-                        src={item.imageUrl}
-                        alt={item.name}
+                        src={item.productImage}
+                        alt={item.productName}
                         className="h-full w-full object-cover rounded-lg"
                       />
                     ) : (
@@ -381,7 +381,7 @@ export function CheckoutPage() {
                     )}
                   </div>
                   <div className="flex-1 min-w-0">
-                    <p className="text-sm font-medium truncate">{item.name}</p>
+                    <p className="text-sm font-medium truncate">{item.productName}</p>
                     <p className="text-xs text-muted-foreground">Qty: {item.quantity}</p>
                   </div>
                   <span className="text-sm font-medium">

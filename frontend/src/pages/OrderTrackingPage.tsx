@@ -53,7 +53,7 @@ export function OrderTrackingPage() {
     
     try {
       setIsLoading(true)
-      const data = await orderApi.getOrder(parseInt(id))
+      const data = await orderApi.getById(parseInt(id))
       setOrder(data)
     } catch (error) {
       toast({
@@ -209,7 +209,7 @@ export function OrderTrackingPage() {
               </CardHeader>
               <CardContent>
                 <div className="space-y-4">
-                  {order.items?.map((item, index) => (
+                  {order.items?.map((item: any, index: number) => (
                     <div
                       key={index}
                       className="flex items-center gap-4 p-4 rounded-lg bg-muted/50"
@@ -224,9 +224,9 @@ export function OrderTrackingPage() {
                         </p>
                       </div>
                       <div className="text-right">
-                        <p className="font-medium">${item.price.toFixed(2)}</p>
+                        <p className="font-medium">${item.price?.toFixed(2)}</p>
                         <p className="text-sm text-muted-foreground">
-                          ${(item.price * item.quantity).toFixed(2)} total
+                          ${((item.price || 0) * item.quantity).toFixed(2)} total
                         </p>
                       </div>
                     </div>

@@ -94,10 +94,10 @@ export function CartPage() {
                   <div className="flex gap-4">
                     {/* Product Image */}
                     <div className="w-24 h-24 flex-shrink-0 rounded-lg overflow-hidden bg-muted">
-                      {item.imageUrl ? (
+                      {item.productImage ? (
                         <img
-                          src={item.imageUrl}
-                          alt={item.name}
+                          src={item.productImage}
+                          alt={item.productName}
                           className="h-full w-full object-cover"
                         />
                       ) : (
@@ -109,7 +109,7 @@ export function CartPage() {
 
                     {/* Product Details */}
                     <div className="flex-1 min-w-0">
-                      <h3 className="font-semibold truncate">{item.name}</h3>
+                      <h3 className="font-semibold truncate">{item.productName}</h3>
                       <p className="text-sm text-muted-foreground">
                         ${item.price.toFixed(2)} each
                       </p>
@@ -147,7 +147,7 @@ export function CartPage() {
                         variant="ghost"
                         size="sm"
                         className="mt-2 text-destructive hover:text-destructive"
-                        onClick={() => handleRemoveItem(item.productId, item.name)}
+                        onClick={() => handleRemoveItem(item.productId, item.productName)}
                       >
                         <Trash2 className="h-4 w-4" />
                       </Button>

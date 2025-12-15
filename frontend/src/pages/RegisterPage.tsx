@@ -57,7 +57,6 @@ export function RegisterPage() {
         email: formData.email,
         password: formData.password,
         phone: formData.phone,
-        address: formData.address,
       })
       
       if (response.success && response.user) {
